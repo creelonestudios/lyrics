@@ -1,0 +1,19 @@
+{
+  "name": "lyrics",
+  "version": "1.0.0",
+  "description": "lyrics file format and loader",
+  "main": "main.mjs",
+  "scripts": {
+    "test": "node loadlyrics.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/creelonestudios/lyrics.git"
+  },
+  "author": "creelonestudios",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/creelonestudios/lyrics/issues"
+  },
+  "homepage": "https://github.com/creelonestudios/lyrics#readme"
+}
