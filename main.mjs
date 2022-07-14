@@ -2,7 +2,8 @@ import fs from "fs/promises"
 
 export async function load(options) {
 
-	let files = await fs.readdir(options.path || "./lyrics/")
+	let path = options.path || "./lyrics/"
+	let files = await fs.readdir(path)
 	let list = []
 
 	for(let f of files) {
@@ -12,7 +13,7 @@ export async function load(options) {
 		}
 		let data = ""
 		try {
-			data = await fs.readFile("./lyrics/" + f, { encoding: "utf-8" })
+			data = await fs.readFile(path + "/" + f, { encoding: "utf-8" })
 		} catch(e) {
 			if(!options.silent) console.error(`load ${f}:`, e)
 			continue
@@ -123,6 +124,22 @@ export class LyricsFile {
 
 	set length(len) {
 		if(len) this.#length = len
+	}
+
+	get acronym() {
+		let words = this.author.split(" ")
+		let acronym = ""
+		if(words.length > 1) words.forEach(e => acronym += e[0])
+		else acronym = this.author.replaceAll(/[\'\(\)\-]/g,"").substr(0,3)
+		return acronym
+	}
+
+	get id() {
+		return this.acronym + "/" + this.title.toLowerCase().replaceAll(/[\s\'\(\)\-]/g,"")
+	}
+
+	opt(name) {
+		return this.options[name] ?? 0
 	}
 
 }
